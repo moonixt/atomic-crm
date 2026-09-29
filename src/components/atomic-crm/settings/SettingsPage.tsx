@@ -22,7 +22,7 @@ import { TextInput } from "@/components/admin/text-input";
 
 import ImageEditorField from "../misc/ImageEditorField";
 import {
-  useConfigurationContext,
+  useRawConfigurationContext,
   useConfigurationUpdater,
   type ConfigurationContextValue,
 } from "../root/ConfigurationContext";
@@ -162,7 +162,7 @@ export const SettingsPage = () => {
 SettingsPage.path = "/settings";
 
 const SettingsForm = () => {
-  const config = useConfigurationContext();
+  const config = useRawConfigurationContext();
 
   const defaultValues = useMemo(
     () => ({
