@@ -3,6 +3,8 @@
 export interface AiStatus {
   configured: boolean;
   model: string;
+  /** Chat Completions base URL, only sent to administrators. */
+  baseUrl: string | null;
   isAdmin: boolean;
   /** Last characters of the stored key, only sent to administrators. */
   keyHint: string | null;
@@ -38,6 +40,7 @@ export type AiChatRequest =
       action: "save_settings";
       apiKey?: string;
       model?: string;
+      baseUrl?: string;
       clearKey?: boolean;
     }
   | { action: "list" }
@@ -60,6 +63,7 @@ export type AiErrorCode =
   | "not_configured"
   | "invalid_api_key"
   | "provider_error"
+  | "invalid_base_url"
   | "unavailable";
 
 export class AiChatError extends Error {

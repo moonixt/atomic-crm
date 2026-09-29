@@ -19,20 +19,28 @@ export const AiSettingsCard = () => {
   const { mutate: save, isPending } = useSaveAiSettings();
   const [apiKey, setApiKey] = useState("");
   const [model, setModel] = useState<string | null>(null);
+  const [baseUrl, setBaseUrl] = useState<string | null>(null);
 
   const unavailable =
     error instanceof AiChatError && error.code === "unavailable";
   const modelValue = model ?? status?.model ?? "";
+  const baseUrlValue = baseUrl ?? status?.baseUrl ?? "";
 
   const submit = (settings: { clearKey?: boolean } = {}) =>
     save(
-      { apiKey, model: modelValue, ...settings },
+      { apiKey, model: modelValue, baseUrl: baseUrlValue, ...settings },
       {
         onSuccess: () => {
           setApiKey("");
           notify("crm.ai.settings.saved");
         },
-        onError: () => notify("crm.ai.settings.save_error", { type: "error" }),
+        onError: (error) =>
+          notify(
+            error instanceof AiChatError && error.code === "invalid_base_url"
+              ? "crm.ai.settings.invalid_base_url"
+              : "crm.ai.settings.save_error",
+            { type: "error" },
+          ),
       },
     );
 
@@ -56,6 +64,22 @@ export const AiSettingsCard = () => {
           </p>
         ) : (
           <>
+            <div className="space-y-2">
+              <Label htmlFor="ai-base-url">
+                {translate("crm.ai.settings.base_url")}
+              </Label>
+              <Input
+                id="ai-base-url"
+                type="url"
+                value={baseUrlValue}
+                onChange={(event) => setBaseUrl(event.target.value)}
+                onKeyDown={onKeyDown}
+                placeholder="https://api.openai.com/v1"
+              />
+              <p className="text-sm text-muted-foreground">
+                {translate("crm.ai.settings.base_url_help")}
+              </p>
+            </div>
             <div className="space-y-2">
               <Label htmlFor="ai-api-key">
                 {translate("crm.ai.settings.api_key")}
@@ -89,6 +113,9 @@ export const AiSettingsCard = () => {
                 onChange={(event) => setModel(event.target.value)}
                 onKeyDown={onKeyDown}
               />
+              <p className="text-sm text-muted-foreground">
+                {translate("crm.ai.settings.model_help")}
+              </p>
             </div>
             <div className="flex gap-2">
               <Button

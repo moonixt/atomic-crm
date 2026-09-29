@@ -384,11 +384,10 @@ export const englishCrmMessages = {
       },
       errors: {
         not_configured:
-          "The AI assistant is not set up yet. Ask an administrator to add an OpenAI API key in the settings.",
+          "The AI assistant is not set up yet. Ask an administrator to add an API key in the settings.",
         not_configured_admin:
-          "Add an OpenAI API key in the settings to enable the AI assistant.",
-        invalid_api_key:
-          "The OpenAI API key was rejected. Check it in the settings.",
+          "Add an API key in the settings to enable the AI assistant.",
+        invalid_api_key: "The API key was rejected. Check it in the settings.",
         provider_error: "The AI provider returned an error. Please try again.",
         unavailable:
           "The AI assistant requires the Supabase backend and is not available in demo mode.",
@@ -396,7 +395,7 @@ export const englishCrmMessages = {
       },
       settings: {
         title: "AI assistant",
-        api_key: "OpenAI API key",
+        api_key: "API key",
         api_key_configured:
           "Key configured (%{hint}), type a new one to replace it",
         api_key_help:
@@ -405,6 +404,11 @@ export const englishCrmMessages = {
         save: "Save AI settings",
         saved: "AI settings saved",
         save_error: "Failed to save the AI settings",
+        base_url: "Base URL",
+        base_url_help:
+          "OpenAI-compatible endpoint. Leave the default for OpenAI; for Azure paste the resource URL (https://<name>.openai.azure.com); for OpenCode use https://opencode.ai/zen/v1.",
+        model_help: "Model name, or the deployment name on Azure.",
+        invalid_base_url: "Invalid base URL: use a full https:// address",
         remove_key: "Remove key",
       },
     },

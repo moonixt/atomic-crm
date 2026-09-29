@@ -102,6 +102,7 @@ export const useSaveAiSettings = () => {
     mutationFn: (settings: {
       apiKey?: string;
       model?: string;
+      baseUrl?: string;
       clearKey?: boolean;
     }) =>
       dataProvider.aiChat<AiStatus>({ action: "save_settings", ...settings }),

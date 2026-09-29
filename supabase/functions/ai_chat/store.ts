@@ -8,6 +8,7 @@ import type { ChatMessage } from "./agent.ts";
 export interface AiSettings {
   apiKey: string | null;
   model: string | null;
+  baseUrl: string | null;
 }
 
 export interface ConversationSummary {
@@ -33,19 +34,27 @@ export const getSettings = async (): Promise<AiSettings> => {
   const [row] = await run<{
     openai_api_key: string | null;
     model: string | null;
-  }>("select openai_api_key, model from private.ai_settings where id = 1");
-  return { apiKey: row?.openai_api_key ?? null, model: row?.model ?? null };
+    base_url: string | null;
+  }>(
+    "select openai_api_key, model, base_url from private.ai_settings where id = 1",
+  );
+  return {
+    apiKey: row?.openai_api_key ?? null,
+    model: row?.model ?? null,
+    baseUrl: row?.base_url ?? null,
+  };
 };
 
 export const saveSettings = async (settings: AiSettings) => {
   await run(
-    `insert into private.ai_settings (id, openai_api_key, model, updated_at)
-     values (1, $1, $2, now())
+    `insert into private.ai_settings (id, openai_api_key, model, base_url, updated_at)
+     values (1, $1, $2, $3, now())
      on conflict (id) do update
        set openai_api_key = excluded.openai_api_key,
            model = excluded.model,
+           base_url = excluded.base_url,
            updated_at = now()`,
-    [settings.apiKey, settings.model],
+    [settings.apiKey, settings.model, settings.baseUrl],
   );
 };
 

@@ -389,11 +389,11 @@ export const portugueseCrmMessages = {
       },
       errors: {
         not_configured:
-          "O assistente de IA ainda não foi configurado. Peça a um administrador para adicionar uma chave de API da OpenAI nas configurações.",
+          "O assistente de IA ainda não foi configurado. Peça a um administrador para adicionar uma chave de API nas configurações.",
         not_configured_admin:
-          "Adicione uma chave de API da OpenAI nas configurações para ativar o assistente de IA.",
+          "Adicione uma chave de API nas configurações para ativar o assistente de IA.",
         invalid_api_key:
-          "A chave de API da OpenAI foi recusada. Verifique-a nas configurações.",
+          "A chave de API foi recusada. Verifique-a nas configurações.",
         provider_error: "O provedor de IA retornou um erro. Tente novamente.",
         unavailable:
           "O assistente de IA precisa do backend Supabase e não está disponível no modo demo.",
@@ -401,7 +401,7 @@ export const portugueseCrmMessages = {
       },
       settings: {
         title: "Assistente de IA",
-        api_key: "Chave de API da OpenAI",
+        api_key: "Chave de API",
         api_key_configured:
           "Chave configurada (%{hint}), digite outra para substituir",
         api_key_help:
@@ -410,6 +410,12 @@ export const portugueseCrmMessages = {
         save: "Salvar configurações de IA",
         saved: "Configurações de IA salvas",
         save_error: "Falha ao salvar as configurações de IA",
+        base_url: "URL base",
+        base_url_help:
+          "Endpoint compatível com a OpenAI. Deixe o padrão para a OpenAI; no Azure cole a URL do recurso (https://<nome>.openai.azure.com); no OpenCode use https://opencode.ai/zen/v1.",
+        model_help: "Nome do modelo, ou o nome do deployment no Azure.",
+        invalid_base_url:
+          "URL base inválida: use um endereço https:// completo",
         remove_key: "Remover chave",
       },
     },

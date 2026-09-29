@@ -137,6 +137,7 @@ create table private.ai_settings (
     id integer not null default 1 primary key,
     openai_api_key text,
     model text,
+    base_url text,
     updated_at timestamp with time zone not null default now(),
     constraint ai_settings_singleton check (id = 1)
 );

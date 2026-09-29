@@ -15,6 +15,7 @@ import {
 const configuredStatus: AiStatus = {
   configured: true,
   model: "gpt-5-mini",
+  baseUrl: null,
   isAdmin: false,
   keyHint: null,
 };

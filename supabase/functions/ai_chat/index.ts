@@ -14,7 +14,13 @@ import {
   supersedePendingChanges,
   toDisplayMessages,
 } from "./agent.ts";
-import { callOpenAI, DEFAULT_MODEL, OpenAIError } from "./openai.ts";
+import {
+  callOpenAI,
+  DEFAULT_BASE_URL,
+  DEFAULT_MODEL,
+  OpenAIError,
+  validateBaseUrl,
+} from "./openai.ts";
 import * as store from "./store.ts";
 
 // Tool results are sent back to the model: cap them to keep requests small.
@@ -22,6 +28,7 @@ const MAX_TOOL_RESULT_LENGTH = 20_000;
 const MAX_MESSAGE_LENGTH = 4_000;
 const MAX_API_KEY_LENGTH = 500;
 const MAX_MODEL_NAME_LENGTH = 100;
+const MAX_BASE_URL_LENGTH = 300;
 const TITLE_LENGTH = 60;
 
 interface Sale {
@@ -63,6 +70,8 @@ const handleStatus = async (sale: Sale) => {
   return json({
     configured: !!settings.apiKey,
     model: settings.model || DEFAULT_MODEL,
+    // The endpoint is only useful (and only shown) to administrators.
+    baseUrl: sale.administrator ? settings.baseUrl || DEFAULT_BASE_URL : null,
     isAdmin: sale.administrator,
     keyHint:
       sale.administrator && settings.apiKey
@@ -92,13 +101,22 @@ const handleSaveSettings = async (
     typeof body.model === "string" && body.model.trim()
       ? body.model.trim()
       : null;
+  const baseUrl =
+    typeof body.baseUrl === "string" && body.baseUrl.trim()
+      ? body.baseUrl.trim()
+      : null;
   if (
     (apiKey && apiKey.length > MAX_API_KEY_LENGTH) ||
-    (model && model.length > MAX_MODEL_NAME_LENGTH)
+    (model && model.length > MAX_MODEL_NAME_LENGTH) ||
+    (baseUrl && baseUrl.length > MAX_BASE_URL_LENGTH)
   ) {
     return createErrorResponse(400, "Value too long");
   }
-  await store.saveSettings({ apiKey, model });
+  const baseUrlError = baseUrl ? validateBaseUrl(baseUrl) : null;
+  if (baseUrlError) {
+    return createErrorResponse(400, baseUrlError, { code: "invalid_base_url" });
+  }
+  await store.saveSettings({ apiKey, model, baseUrl });
   return handleStatus(sale);
 };
 
@@ -128,7 +146,14 @@ const handleConversationTurn = async (
   const token = getToken(req);
   const deps: AgentDeps = {
     callModel: (messages) =>
-      callOpenAI(settings.apiKey!, settings.model || DEFAULT_MODEL, messages),
+      callOpenAI(
+        {
+          apiKey: settings.apiKey!,
+          model: settings.model || DEFAULT_MODEL,
+          baseUrl: settings.baseUrl,
+        },
+        messages,
+      ),
     getSchema: getSchemaData,
     runQuery: async (sql) => {
       const result = await executeQueryWithRLS(sql, token, validateReadOnly);

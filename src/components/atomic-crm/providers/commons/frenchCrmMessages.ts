@@ -390,11 +390,11 @@ export const frenchCrmMessages = {
       },
       errors: {
         not_configured:
-          "L'assistant IA n'est pas encore configuré. Demandez à un administrateur d'ajouter une clé API OpenAI dans les paramètres.",
+          "L'assistant IA n'est pas encore configuré. Demandez à un administrateur d'ajouter une clé API dans les paramètres.",
         not_configured_admin:
-          "Ajoutez une clé API OpenAI dans les paramètres pour activer l'assistant IA.",
+          "Ajoutez une clé API dans les paramètres pour activer l'assistant IA.",
         invalid_api_key:
-          "La clé API OpenAI a été refusée. Vérifiez-la dans les paramètres.",
+          "La clé API a été refusée. Vérifiez-la dans les paramètres.",
         provider_error:
           "Le fournisseur d'IA a renvoyé une erreur. Veuillez réessayer.",
         unavailable:
@@ -403,7 +403,7 @@ export const frenchCrmMessages = {
       },
       settings: {
         title: "Assistant IA",
-        api_key: "Clé API OpenAI",
+        api_key: "Clé API",
         api_key_configured:
           "Clé configurée (%{hint}), saisissez-en une nouvelle pour la remplacer",
         api_key_help:
@@ -412,6 +412,12 @@ export const frenchCrmMessages = {
         save: "Enregistrer les paramètres IA",
         saved: "Paramètres IA enregistrés",
         save_error: "Échec de l'enregistrement des paramètres IA",
+        base_url: "URL de base",
+        base_url_help:
+          "Point d'accès compatible OpenAI. Laissez la valeur par défaut pour OpenAI ; pour Azure, collez l'URL de la ressource (https://<nom>.openai.azure.com) ; pour OpenCode, utilisez https://opencode.ai/zen/v1.",
+        model_help: "Nom du modèle, ou nom du déploiement sur Azure.",
+        invalid_base_url:
+          "URL de base invalide : utilisez une adresse https:// complète",
         remove_key: "Supprimer la clé",
       },
     },

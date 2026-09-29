@@ -44,7 +44,13 @@ export const AiChatPanel = ({ conversationId }: AiChatPanelProps) => {
   }, [messages.length, isRunning, pendingChanges.length]);
 
   const onError = (error: unknown) => {
-    notify(errorMessageKey(error), { type: "error" });
+    // Provider errors carry the provider's own message (wrong model, quota...).
+    const detail =
+      error instanceof AiChatError &&
+      (error.code === "provider_error" || error.code === "invalid_api_key")
+        ? ` (${error.message})`
+        : "";
+    notify(`${translate(errorMessageKey(error))}${detail}`, { type: "error" });
     const savedId = error instanceof AiChatError && error.conversationId;
     if (!conversationId && savedId) navigate(`/ai/${savedId}`);
   };
