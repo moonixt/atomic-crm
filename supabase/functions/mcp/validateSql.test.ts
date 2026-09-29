@@ -120,3 +120,50 @@ describe("validateWrite", () => {
     expect(validateWrite(sql)).not.toBeNull();
   });
 });
+
+describe("forbidden functions", () => {
+  it.each([
+    [
+      "set_config switching back to the superuser role",
+      "SELECT set_config('role', 'postgres', true)",
+    ],
+    [
+      "set_config impersonating another user",
+      `SELECT set_config('request.jwt.claims', '{"sub":"other"}', true)`,
+    ],
+    [
+      "schema-qualified set_config in FROM",
+      "SELECT * FROM pg_catalog.set_config('role', 'postgres', true)",
+    ],
+    [
+      "set_config hidden in a subquery",
+      "SELECT id FROM contacts WHERE id = (SELECT length(set_config('role', 'postgres', true)))",
+    ],
+    [
+      "query_to_xml running an unvalidated SQL string",
+      "SELECT query_to_xml('select * from private.ai_settings', true, true, '')",
+    ],
+    [
+      "set_config inside a CTE",
+      "WITH x AS (SELECT set_config('role', 'postgres', true)) SELECT * FROM x",
+    ],
+  ])("rejects %s in read-only queries", (_label, sql) => {
+    expect(validateReadOnly(sql)).toMatch(/not allowed/);
+  });
+
+  it("rejects set_config in a write statement", () => {
+    expect(
+      validateWrite(
+        "UPDATE tasks SET text = set_config('role', 'postgres', true) WHERE id = 1",
+      ),
+    ).toMatch(/not allowed/);
+  });
+
+  it("still allows ordinary function calls", () => {
+    expect(
+      validateReadOnly(
+        "SELECT lower(first_name), count(*) FROM contacts GROUP BY 1",
+      ),
+    ).toBeNull();
+  });
+});

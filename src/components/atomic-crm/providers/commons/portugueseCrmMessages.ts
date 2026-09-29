@@ -364,6 +364,55 @@ export const portugueseCrmMessages = {
     },
   },
   crm: {
+    ai: {
+      title: "Assistente IA",
+      nav: "Assistente",
+      new_conversation: "Nova conversa",
+      conversations: "Conversas",
+      no_conversations: "Nenhuma conversa ainda",
+      delete_conversation: "Excluir conversa",
+      delete_confirm: "Excluir esta conversa?",
+      placeholder:
+        "Pergunte sobre seus contatos, empresas, negócios ou tarefas…",
+      send: "Enviar",
+      thinking: "Pensando…",
+      empty_title: "Como posso ajudar?",
+      empty_hint:
+        "Faça uma pergunta sobre os dados do seu CRM ou peça para criar ou atualizar registros. Eu sempre peço confirmação antes de alterar qualquer coisa.",
+      go_to_settings: "Abrir configurações",
+      pending: {
+        title: "Confirmar esta alteração",
+        no_summary: "Alteração proposta pelo assistente",
+        show_sql: "Ver SQL",
+        confirm: "Aplicar",
+        cancel: "Cancelar",
+      },
+      errors: {
+        not_configured:
+          "O assistente de IA ainda não foi configurado. Peça a um administrador para adicionar uma chave de API da OpenAI nas configurações.",
+        not_configured_admin:
+          "Adicione uma chave de API da OpenAI nas configurações para ativar o assistente de IA.",
+        invalid_api_key:
+          "A chave de API da OpenAI foi recusada. Verifique-a nas configurações.",
+        provider_error: "O provedor de IA retornou um erro. Tente novamente.",
+        unavailable:
+          "O assistente de IA precisa do backend Supabase e não está disponível no modo demo.",
+        generic: "Algo deu errado com o assistente de IA.",
+      },
+      settings: {
+        title: "Assistente de IA",
+        api_key: "Chave de API da OpenAI",
+        api_key_configured:
+          "Chave configurada (%{hint}), digite outra para substituir",
+        api_key_help:
+          "Guardada apenas no servidor. Quem usa o assistente nunca a vê.",
+        model: "Modelo",
+        save: "Salvar configurações de IA",
+        saved: "Configurações de IA salvas",
+        save_error: "Falha ao salvar as configurações de IA",
+        remove_key: "Remover chave",
+      },
+    },
     configuration: {
       companySectors: {
         "communication-services": "Serviços de comunicação",

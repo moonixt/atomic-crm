@@ -24,6 +24,8 @@ const Header = () => {
     currentPath = "/companies";
   } else if (matchPath("/deals/*", location.pathname)) {
     currentPath = "/deals";
+  } else if (matchPath("/ai/*", location.pathname)) {
+    currentPath = "/ai";
   } else {
     currentPath = false;
   }
@@ -77,6 +79,11 @@ const Header = () => {
                     })}
                     to="/deals"
                     isActive={currentPath === "/deals"}
+                  />
+                  <NavigationTab
+                    label={translate("crm.ai.nav")}
+                    to="/ai"
+                    isActive={currentPath === "/ai"}
                   />
                 </nav>
               </div>

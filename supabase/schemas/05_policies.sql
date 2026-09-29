@@ -14,6 +14,10 @@ alter table public.tags enable row level security;
 alter table public.tasks enable row level security;
 alter table public.configuration enable row level security;
 alter table public.favicons_excluded_domains enable row level security;
+-- AI assistant tables: RLS on with no policies, only the service side reads them
+alter table private.ai_settings enable row level security;
+alter table private.ai_conversations enable row level security;
+alter table private.ai_messages enable row level security;
 
 -- Companies
 create policy "Enable read access for authenticated users" on public.companies for select to authenticated using (true);

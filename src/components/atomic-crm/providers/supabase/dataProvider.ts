@@ -16,6 +16,7 @@ import type {
   SignUpData,
 } from "../../types";
 import type { ConfigurationContextValue } from "../../root/ConfigurationContext";
+import { AiChatError, type AiChatRequest } from "../../ai/types";
 import { ATTACHMENTS_BUCKET } from "../commons/attachments";
 import { getIsInitialized } from "./authProvider";
 import { getSupabaseClient } from "./supabase";
@@ -247,6 +248,27 @@ const getDataProviderWithCustomMethods = () => {
       }
 
       return data;
+    },
+    async aiChat<T>(request: AiChatRequest): Promise<T> {
+      const { data, error } = await getSupabaseClient().functions.invoke<T>(
+        "ai_chat",
+        { method: "POST", body: request },
+      );
+      if (error) {
+        const details = await (async () => {
+          try {
+            return (await error?.context?.json()) ?? {};
+          } catch {
+            return {};
+          }
+        })();
+        throw new AiChatError(
+          details?.message || "AI assistant request failed",
+          details?.code,
+          details?.conversationId,
+        );
+      }
+      return data as T;
     },
     async getConfiguration(): Promise<ConfigurationContextValue> {
       const { data } = await baseDataProvider.getOne("configuration", {
