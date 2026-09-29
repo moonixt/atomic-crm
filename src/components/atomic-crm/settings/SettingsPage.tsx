@@ -20,6 +20,7 @@ import { AutocompleteInput } from "@/components/admin/autocomplete-input";
 import { SimpleFormIterator } from "@/components/admin/simple-form-iterator";
 import { TextInput } from "@/components/admin/text-input";
 
+import { AiSettingsCard } from "../ai/AiSettingsCard";
 import ImageEditorField from "../misc/ImageEditorField";
 import {
   useRawConfigurationContext,
@@ -42,6 +43,7 @@ const SECTIONS = [
   { id: "deals", label: "resources.deals.name", fallback: "Deals" },
   { id: "notes", label: "resources.notes.name", fallback: "Notes" },
   { id: "tasks", label: "resources.tasks.name", fallback: "Tasks" },
+  { id: "ai", label: "crm.ai.settings.title", fallback: "AI assistant" },
 ];
 
 /** Ensure every item in a { value, label } array has a value (slug from label). */
@@ -462,6 +464,8 @@ const SettingsFormFields = () => {
             </ArrayInput>
           </CardContent>
         </Card>
+
+        <AiSettingsCard />
       </div>
 
       {/* Sticky save button */}

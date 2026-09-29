@@ -874,6 +874,34 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/atomic-crm/ai/useAiChat.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/types.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/AiSettingsCard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/AiPendingChanges.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/AiConversationList.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/AiChatPanel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/ai/AiChatPage.tsx",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/atomic-crm/activity/ActivityLogNote.tsx",
           "type": "registry:component"
         },

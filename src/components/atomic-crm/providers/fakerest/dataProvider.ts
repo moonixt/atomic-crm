@@ -20,6 +20,7 @@ import type {
   Task,
 } from "../../types";
 import type { ConfigurationContextValue } from "../../root/ConfigurationContext";
+import { AiChatError } from "../../ai/types";
 import { getActivityLog } from "../commons/activity";
 import { getCompanyAvatar } from "../commons/getCompanyAvatar";
 import { getContactAvatar } from "../commons/getContactAvatar";
@@ -296,6 +297,10 @@ export const createDataProvider = ({
     },
     mergeContacts: async (sourceId: Identifier, targetId: Identifier) => {
       return mergeContacts(sourceId, targetId, baseDataProvider);
+    },
+    // The AI assistant needs the Supabase backend (edge function + OpenAI key).
+    aiChat: async <T>(): Promise<T> => {
+      throw new AiChatError("AI assistant is not available", "unavailable");
     },
     getConfiguration: async (): Promise<ConfigurationContextValue> => {
       const { data } = await baseDataProvider.getOne("configuration", {

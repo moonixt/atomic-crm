@@ -170,5 +170,7 @@ verify_jwt = false
 verify_jwt = false
 [functions.users]
 verify_jwt = false
+[functions.ai_chat]
+verify_jwt = false
 [functions.mcp]
 verify_jwt = false

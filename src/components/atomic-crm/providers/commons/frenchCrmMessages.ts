@@ -365,6 +365,56 @@ export const frenchCrmMessages = {
     },
   },
   crm: {
+    ai: {
+      title: "Assistant IA",
+      nav: "Assistant",
+      new_conversation: "Nouvelle conversation",
+      conversations: "Conversations",
+      no_conversations: "Aucune conversation pour l'instant",
+      delete_conversation: "Supprimer la conversation",
+      delete_confirm: "Supprimer cette conversation ?",
+      placeholder:
+        "Posez une question sur vos contacts, entreprises, affaires ou tâches…",
+      send: "Envoyer",
+      thinking: "Réflexion…",
+      empty_title: "Comment puis-je vous aider ?",
+      empty_hint:
+        "Posez une question sur les données de votre CRM, ou demandez-moi de créer ou modifier des enregistrements. Je demande toujours avant de modifier quoi que ce soit.",
+      go_to_settings: "Ouvrir les paramètres",
+      pending: {
+        title: "Confirmer cette modification",
+        no_summary: "Modification proposée par l'assistant",
+        show_sql: "Voir le SQL",
+        confirm: "Appliquer",
+        cancel: "Annuler",
+      },
+      errors: {
+        not_configured:
+          "L'assistant IA n'est pas encore configuré. Demandez à un administrateur d'ajouter une clé API OpenAI dans les paramètres.",
+        not_configured_admin:
+          "Ajoutez une clé API OpenAI dans les paramètres pour activer l'assistant IA.",
+        invalid_api_key:
+          "La clé API OpenAI a été refusée. Vérifiez-la dans les paramètres.",
+        provider_error:
+          "Le fournisseur d'IA a renvoyé une erreur. Veuillez réessayer.",
+        unavailable:
+          "L'assistant IA nécessite le backend Supabase et n'est pas disponible en mode démo.",
+        generic: "Une erreur est survenue avec l'assistant IA.",
+      },
+      settings: {
+        title: "Assistant IA",
+        api_key: "Clé API OpenAI",
+        api_key_configured:
+          "Clé configurée (%{hint}), saisissez-en une nouvelle pour la remplacer",
+        api_key_help:
+          "Stockée uniquement sur le serveur. Les utilisateurs de l'assistant ne la voient jamais.",
+        model: "Modèle",
+        save: "Enregistrer les paramètres IA",
+        saved: "Paramètres IA enregistrés",
+        save_error: "Échec de l'enregistrement des paramètres IA",
+        remove_key: "Supprimer la clé",
+      },
+    },
     configuration: {
       companySectors: {
         "communication-services": "Services de communication",
